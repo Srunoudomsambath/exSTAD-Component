@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Mobile Development Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            border-radius: 20px;
+            padding: 4rem;
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,20 L80,20 L80,80 L20,80 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/><circle cx="30" cy="30" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="30" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .course-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .course-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1976d2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Course Image */
+        .course-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #42a5f5 0%, #1976d2 100%);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        /* Course Description */
+        .description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-item {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #1565c0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0d47a1;
+        }
+
+        /* Level Badge */
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        /* Course Offers */
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .offer-item {
+            background: #f0f8ff;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #1976d2;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .offer-number {
+            background: #1976d2;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Course Outline */
+        .outline-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .outline-category {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        .outline-category h4 {
+            color: #1976d2;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .outline-category ul {
+            list-style: none;
+        }
+
+        .outline-category li {
+            padding: 0.4rem 0;
+            color: #5a5a5a;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .outline-category li::before {
+            content: '•';
+            color: #1976d2;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Platform Icons */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .platform-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e3f2fd;
+            transition: all 0.2s;
+        }
+
+        .platform-item:hover {
+            border-color: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .platform-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .platform-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1976d2;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .price-section {
+            margin-bottom: 2rem;
+        }
+
+        .scholarship-badge {
+            background: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .original-price {
+            font-size: 1.1rem;
+            text-decoration: line-through;
+            color: #a0aec0;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+        }
+
+        .savings-text {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #1976d2;
+            color: white;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn-secondary {
+            background: #edf2f7;
+            color: #2d3748;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* QR Code */
+        .qr-section {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: #1976d2;
+            margin: 1rem auto;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .qr-text {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        /* Status Indicator */
+        .status-active {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem;
+            }
+            
+            .course-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="course-title">Flutter Mobile Development</h1>
+                <p class="course-subtitle">Master multi-platform app development for iOS, Android, Web, and Desktop using a single codebase. Includes UI/UX design concepts and professional mobile functionality integration.</p>
+                <div class="hero-meta">
+                    <div class="meta-badge">80 Total Hours</div>
+                    <div class="meta-badge">25/30 Slots Available</div>
+                    <div class="meta-badge status-active">🟢 Enrollment Open</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Left Content -->
+            <div class="content-area">
+                <!-- Course Overview -->
+                <div class="card">
+                    <h2 class="card-title">📱 Course Overview</h2>
+                    <div class="course-image">📱</div>
+                    
+                    <p class="description">
+                        Flutter course is designed to develop multi-platform applications like iOS and Android Apps, Web, Desktop apps like MacOS, Windows and Linux using one code base. We also include UI/UX design concepts. Moreover, integrate with third-party libraries and other mobile functionality to make your app more professional.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Course Type</div>
+                            <div class="info-value">Multi-Platform Development</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value">80 Hours</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Level</div>
+                            <div class="info-value">
+                                <span class="level-badge">Beginner to Advanced</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Available Slots</div>
+                            <div class="info-value">25 out of 30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Platforms -->
+                <div class="card">
+                    <h2 class="card-title">🎯 Target Platforms</h2>
+                    <div class="platform-grid">
+                        <div class="platform-item">
+                            <div class="platform-icon">📱</div>
+                            <div class="platform-name">iOS</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-icon">🤖</div>
+                            <div class="platform-name">Android</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-icon">🌐</div>
+                            <div class="platform-name">Web</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-icon">🖥️</div>
+                            <div class="platform-name">MacOS</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-icon">💻</div>
+                            <div class="platform-name">Windows</div>
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-icon">🐧</div>
+                            <div class="platform-name">Linux</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Offers -->
+                <div class="card">
+                    <h2 class="card-title">🎓 Course Offers</h2>
+                    <div class="offer-grid">
+                        <div class="offer-item">
+                            <div class="offer-number">1</div>
+                            <div>Mobile Concept</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">2</div>
+                            <div>Dart Programming</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">3</div>
+                            <div>Details on Widget</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">4</div>
+                            <div>UI / UX Design</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">5</div>
+                            <div>Stateless & Stateful</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">6</div>
+                            <div>Server Communication</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">7</div>
+                            <div>State Management</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">8</div>
+                            <div>Third-Party Libraries</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">9</div>
+                            <div>Apps Released</div>
+                        </div>
+                        <div class="offer-item">
+                            <div class="offer-number">10</div>
+                            <div>Final Project</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Outline -->
+                <div class="card">
+                    <h2 class="card-title">📋 Detailed Course Outline</h2>
+                    <div class="outline-section">
+                        <div class="outline-category">
+                            <h4>🚀 Flutter Fundamentals</h4>
+                            <ul>
+                                <li>Flutter Overview</li>
+                                <li>Environment Setup</li>
+                                <li>IDE Installation</li>
+                                <li>First Project</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>📝 Dart Programming</h4>
+                            <ul>
+                                <li>Basic Language Syntax</li>
+                                <li>Data Type & Operator</li>
+                                <li>Null Safety</li>
+                                <li>Conditional & Control Flow</li>
+                                <li>Function</li>
+                                <li>Class & Constructor</li>
+                                <li>Inheritance</li>
+                                <li>Setter & Getter</li>
+                                <li>Abstract Class and Method</li>
+                                <li>Interfaces & Mixin</li>
+                                <li>Callback Function</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>📊 Data Structures</h4>
+                            <ul>
+                                <li>List</li>
+                                <li>Set</li>
+                                <li>Map</li>
+                                <li>Lab: Classwork</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>🔄 Asynchronous Programming</h4>
+                            <ul>
+                                <li>Asynchronous in Flutter</li>
+                                <li>Async & Await</li>
+                                <li>FutureBuilder Widget</li>
+                                <li>Fetching Network Data</li>
+                                <li>Stream</li>
+                                <li>Model Class Mapping</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>💾 Data Storage</h4>
+                            <ul>
+                                <li>SQLite</li>
+                                <li>File</li>
+                                <li>SharedPreferences</li>
+                                <li>Lab: Read Data from RESTful APIs</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>🎨 UI Components</h4>
+                            <ul>
+                                <li>Scaffold</li>
+                                <li>Text & TextField</li>
+                                <li>Color & Fonts</li>
+                                <li>Image & Assets</li>
+                                <li>Button & Icons</li>
+                                <li>Container & Padding</li>
+                                <li>Responsive: LayoutBuilder</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>⚡ Widget Management</h4>
+                            <ul>
+                                <li>Stateless widget and hot reload</li>
+                                <li>Stateful Usage</li>
+                                <li>Event Listener</li>
+                                <li>Widget Lifecycle</li>
+                                <li>Error Handling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>📐 Layout Widgets</h4>
+                            <ul>
+                                <li>Row & Column</li>
+                                <li>Stack</li>
+                                <li>SingleChildScrollView</li>
+                                <li>List View & Grid View</li>
+                                <li>Navigation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>🎨 UI/UX Design</h4>
+                            <ul>
+                                <li>How important of UX / UI</li>
+                                <li>Rule and Principle</li>
+                                <li>Minimalist Design</li>
+                                <li>Thing to avoid</li>
+                                <li>Lab: Homework</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>🌐 Network & Data</h4>
+                            <ul>
+                                <li>Object Mapping</li>
+                                <li>Read data from Server</li>
+                                <li>Write Data to Server</li>
+                                <li>Upload file</li>
+                                <li>Lab: Project</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>📈 Advanced Topics</h4>
+                            <ul>
+                                <li>Data Flow</li>
+                                <li>Project Structure</li>
+                                <li>Provider / MVVM</li>
+                                <li>Firebase</li>
+                                <li>Google Maps</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="outline-category">
+                            <h4>🚀 Deployment</h4>
+                            <ul>
+                                <li>Build to iOS</li>
+                                <li>Build to Android</li>
+                                <li>Build to Web</li>
+                                <li>Build to MacOS</li>
+                                <li>Build to Windows</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <div class="pricing-card">
+                    <div class="scholarship-badge">🎓 20% Scholarship</div>
+                    
+                    <div class="price-section">
+                        <div class="original-price">$280.0</div>
+                        <div class="current-price">$224.0</div>
+                        <div class="savings-text">Save $56.0</div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary">📱 Enroll Now</a>
+                    <a href="#" class="btn btn-telegram">💬 Join Telegram Group</a>
+                    <a href="#" class="btn btn-secondary">📄 Download Curriculum PDF</a>
+
+                    <div class="qr-section">
+                        <h4 style="margin-bottom: 1rem; color: #2d3748;">Quick Enrollment</h4>
+                        <div class="qr-code">QR CODE</div>
+                        <div class="qr-text">Scan to enroll instantly</div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+                        <div style="font-size: 0.9rem; color: #718096; text-align: center;">
+                            🎯 Build apps for 6+ platforms<br>
+                            ⚡ 80 hours of intensive training<br>
+                            🔥 Limited scholarship seats
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

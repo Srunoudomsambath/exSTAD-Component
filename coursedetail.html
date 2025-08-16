@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - Modern Web Development</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+            border-radius: 20px;
+            padding: 4rem;
+            color: white;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="2.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .course-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .course-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1a365d;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Course Image */
+        .course-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Course Description */
+        .description {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 2rem;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-item {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid #3182ce;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        /* Level Badge */
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .level-basic { background: #c6f6d5; color: #22543d; }
+        .level-medium { background: #fed7d7; color: #9b2c2c; }
+        .level-advanced { background: #fbb6ce; color: #97266d; }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-number {
+            background: #3182ce;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            flex-grow: 1;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-week {
+            font-weight: 600;
+            color: #3182ce;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .price-section {
+            margin-bottom: 2rem;
+        }
+
+        .original-price {
+            font-size: 1.1rem;
+            text-decoration: line-through;
+            color: #a0aec0;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3182ce;
+            margin-bottom: 0.5rem;
+        }
+
+        .offer-text {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #3182ce;
+            color: white;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn-secondary {
+            background: #edf2f7;
+            color: #2d3748;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+            color: white;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* QR Code */
+        .qr-section {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: #1a365d;
+            margin: 1rem auto;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .qr-text {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-bottom: 1rem;
+        }
+
+        /* Status Indicator */
+        .status-active {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Coverage Tags */
+        .coverage-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .coverage-tag {
+            background: #bee3f8;
+            color: #2b6cb0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem;
+            }
+            
+            .course-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-number {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1 class="course-title">Modern Web Development Masterclass</h1>
+                <p class="course-subtitle">Master full-stack development with React, Node.js, and modern deployment strategies. Build real-world projects and advance your career.</p>
+                <div class="hero-meta">
+                    <div class="meta-badge">120 Total Hours</div>
+                    <div class="meta-badge">5/30 Slots Available</div>
+                    <div class="meta-badge status-active">🟢 Enrollment Open</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+            <!-- Left Content -->
+            <div class="content-area">
+                <!-- Course Overview -->
+                <div class="card">
+                    <h2 class="card-title">📚 Course Overview</h2>
+                    <div class="course-image">Course Thumbnail Preview</div>
+                    
+                    <p class="description">
+                        This comprehensive web development course takes you from fundamentals to advanced full-stack development. 
+                        You'll learn modern JavaScript, React for frontend, Node.js for backend, and MongoDB for database management. 
+                        The course includes hands-on projects, real-world applications, and industry best practices to make you job-ready.
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Course Type</div>
+                            <div class="info-value">Online Live Sessions</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value">16 Weeks (120 Hours)</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Level</div>
+                            <div class="info-value">
+                                <span class="level-badge level-medium">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Available Slots</div>
+                            <div class="info-value">25 out of 30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What You'll Learn -->
+                <div class="card">
+                    <h2 class="card-title">🎯 Coverage & Skills</h2>
+                    <div class="coverage-tags">
+                        <div class="coverage-tag">Frontend Development</div>
+                        <div class="coverage-tag">Backend APIs</div>
+                        <div class="coverage-tag">Database Design</div>
+                        <div class="coverage-tag">React.js</div>
+                        <div class="coverage-tag">Node.js</div>
+                        <div class="coverage-tag">MongoDB</div>
+                        <div class="coverage-tag">Authentication</div>
+                        <div class="coverage-tag">Deployment</div>
+                        <div class="coverage-tag">AWS Cloud</div>
+                        <div class="coverage-tag">Git & GitHub</div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="card">
+                    <h2 class="card-title">📅 Course Timeline</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-number">1</div>
+                            <div class="timeline-content">
+                                <div class="timeline-week">Week 1-2: Foundation</div>
+                                <div class="timeline-description">HTML5 semantics, CSS3 advanced features, JavaScript ES6+ fundamentals, and development environment setup.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-number">2</div>
+                            <div class="timeline-content">
+                                <div class="timeline-week">Week 3-6: Frontend Mastery</div>
+                                <div class="timeline-description">React.js components, hooks, state management, routing, and building responsive user interfaces.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-number">3</div>
+                            <div class="timeline-content">
+                                <div class="timeline-week">Week 7-10: Backend Development</div>
+                                <div class="timeline-description">Node.js server setup, Express.js framework, RESTful API design, and authentication systems.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-number">4</div>
+                            <div class="timeline-content">
+                                <div class="timeline-week">Week 11-14: Database & Integration</div>
+                                <div class="timeline-description">MongoDB operations, data modeling, full-stack integration, and testing strategies.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-number">5</div>
+                            <div class="timeline-content">
+                                <div class="timeline-week">Week 15-16: Deployment & Portfolio</div>
+                                <div class="timeline-description">AWS deployment, CI/CD pipelines, performance optimization, and capstone project development.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <div class="pricing-card">
+                    <div class="price-section">
+                        <div class="original-price">$899</div>
+                        <div class="current-price">$599</div>
+                        <div class="offer-text">33% Early Bird Discount</div>
+                    </div>
+
+                    <a href="#" class="btn btn-primary">🎓 Enroll Now</a>
+                    <a href="#" class="btn btn-telegram">💬 Join Telegram Group</a>
+                    <a href="#" class="btn btn-secondary">📄 Download Curriculum PDF</a>
+
+                    <div class="qr-section">
+                        <h4 style="margin-bottom: 1rem; color: #2d3748;">Quick Enrollment</h4>
+                        <div class="qr-code">QR CODE</div>
+                        <div class="qr-text">Scan to enroll instantly</div>
+                    </div>
+
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e2e8f0;">
+                        <div style="font-size: 0.9rem; color: #718096; text-align: center;">
+                            🔥 Limited time offer<br>
+                            ⏰ 5 days remaining<br>
+                            🎯 Only 5 spots left
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

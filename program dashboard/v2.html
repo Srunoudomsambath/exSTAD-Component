@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Opening Program</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">Create New Opening</h1>
+        <div class="space-y-6">
+
+            <div>
+                <label for="program-select" class="block text-sm font-medium text-gray-700">Select Program *</label>
+                <select id="program-select" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <option value="">-- Choose Program --</option>
+                    <option value="program-1">Web Development</option>
+                    <option value="program-2">Data Science</option>
+                    <option value="program-3">UI/UX Design</option>
+                </select>
+            </div>
+
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                    <a href="#" class="border-b-2 border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 text-sm font-medium" aria-current="page">Basic Info</a>
+                    <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Classes</a>
+                    <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Timeline</a>
+                    <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Enrollment</a>
+                    <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Learning Outcomes</a>
+                    <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 text-sm font-medium">Course Requirements</a>
+                </nav>
+            </div>
+
+            <div id="tab-content-basic-info" class="space-y-4">
+                
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700">Opening Title *</label>
+                    <input type="text" id="title" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., Web Development Bootcamp">
+                    <p class="mt-2 text-sm text-gray-500">Required. Name of the opening program.</p>
+                </div>
+
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700">Short Description *</label>
+                    <textarea id="description" rows="3" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Brief description about the program"></textarea>
+                    <p class="mt-2 text-sm text-gray-500">Required. Displayed on program card.</p>
+                </div>
+
+                <div>
+                    <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+                    <input type="url" id="thumbnail" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Optional, e.g., https://example.com/image.jpg">
+                    <p class="mt-2 text-sm text-gray-500">Optional. Displayed on program card.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div>
+                        <label for="total-hours" class="block text-sm font-medium text-gray-700">Total Hours</label>
+                        <input type="number" id="total-hours" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., 40">
+                        <p class="mt-2 text-sm text-gray-500">Total hours for the program.</p>
+                    </div>
+
+                    <div>
+                        <label for="total-slots" class="block text-sm font-medium text-gray-700">Total Slots</label>
+                        <input type="number" id="total-slots" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., 30">
+                        <p class="mt-2 text-sm text-gray-500">Maximum number of students.</p>
+                    </div>
+
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                        <select id="status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option>Open</option>
+                            <option>Closed</option>
+                            <option>Archived</option>
+                        </select>
+                        <p class="mt-2 text-sm text-gray-500">Open: accepting students, Closed: not accepting.</p>
+                    </div>
+
+                    <div>
+                        <label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+                        <select id="type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option>Short Course</option>
+                            <option>Scholarship</option>
+                        </select>
+                        <p class="mt-2 text-sm text-gray-500">Select type of program.</p>
+                    </div>
+
+                    <div>
+                        <label for="level" class="block text-sm font-medium text-gray-700">Level</label>
+                        <select id="level" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                            <option>Basic</option>
+                            <option>Medium</option>
+                            <option>Advanced</option>
+                        </select>
+                        <p class="mt-2 text-sm text-gray-500">Skill level for the program.</p>
+                    </div>
+
+                    <div>
+                        <label for="coverage" class="block text-sm font-medium text-gray-700">Coverage</label>
+                        <input type="text" id="coverage" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., Cambodia, Phnom Penh">
+                        <p class="mt-2 text-sm text-gray-500">Location or online coverage.</p>
+                    </div>
+                    
+                    <div>
+                        <label for="original-fee" class="block text-sm font-medium text-gray-700">Original Fee</label>
+                        <input type="number" id="original-fee" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., 300">
+                        <p class="mt-2 text-sm text-gray-500">Fee before any discounts.</p>
+                    </div>
+
+                    <div>
+                        <label for="offer" class="block text-sm font-medium text-gray-700">Offer</label>
+                        <input type="text" id="offer" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="e.g., 30% discount">
+                        <p class="mt-2 text-sm text-gray-500">Optional: special offer for students.</p>
+                    </div>
+
+                    <div>
+                        <label for="telegram-group" class="block text-sm font-medium text-gray-700">Telegram Group Link</label>
+                        <input type="url" id="telegram-group" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Optional, e.g., https://t.me/group">
+                        <p class="mt-2 text-sm text-gray-500">Optional: link to Telegram group for students.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="detail" class="block text-sm font-medium text-gray-700">Detail</label>
+                    <textarea id="detail" rows="5" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Full program detail or curriculum summary"></textarea>
+                    <p class="mt-2 text-sm text-gray-500">Can include rich text later.</p>
+                </div>
+
+                <div>
+                    <label for="curriculum-pdf" class="block text-sm font-medium text-gray-700">Curriculum PDF URL</label>
+                    <input type="url" id="curriculum-pdf" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Optional, link to PDF">
+                    <p class="mt-2 text-sm text-gray-500">Optional: upload PDF link of curriculum.</p>
+                </div>
+            </div>
+
+            <div id="tab-content-classes" class="space-y-4 hidden">
+                <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    + Add Class
+                </button>
+                <div class="border p-4 rounded-md space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Class Name">
+                        <select class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                            <option>Morning</option>
+                            <option>Afternoon</option>
+                            <option>Evening</option>
+                        </select>
+                        <div class="flex items-center">
+                            <input id="weekend" type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                            <label for="weekend" class="ml-2 block text-sm text-gray-900">Weekend?</label>
+                        </div>
+                        <input type="number" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Max Seat">
+                        <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Instructor">
+                        <input type="time" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Start Time">
+                        <input type="time" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="End Time">
+                    </div>
+                    <button type="button" class="text-red-600 hover:text-red-900 text-sm">Remove class</button>
+                </div>
+                <p class="text-sm text-gray-500">No classes yet.</p>
+            </div>
+
+            <div id="tab-content-timeline" class="space-y-4 hidden">
+                <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    + Add Module
+                </button>
+                <div class="border p-4 rounded-md space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Module Name">
+                        <input type="date" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Deadline">
+                    </div>
+                    <button type="button" class="text-red-600 hover:text-red-900 text-sm">Remove module</button>
+                </div>
+                <p class="text-sm text-gray-500">No timeline modules yet.</p>
+            </div>
+            
+            <div id="tab-content-enrollment" class="space-y-4 hidden">
+                <select class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                    <option value="">Select Enrollment Form</option>
+                    <option>Scholarship</option>
+                    <option>Short Course</option>
+                </select>
+                <input type="url" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Platform Link">
+                <input type="url" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="QR Image URL">
+                <div class="flex items-center">
+                    <input id="enrollment-open" type="checkbox" checked class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+                    <label for="enrollment-open" class="ml-2 block text-sm text-gray-900">Enrollment Open?</label>
+                </div>
+            </div>
+
+            <div id="tab-content-outcomes" class="space-y-4 hidden">
+                <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    + Add Learning Outcome
+                </button>
+                <div class="border p-4 rounded-md space-y-4">
+                    <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Outcome Title">
+                    <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Outcome Description">
+                    <div class="pl-4 border-l-2 border-purple-300 space-y-3">
+                        <p class="font-medium text-sm text-gray-700">Subtopics</p>
+                        <button type="button" class="px-2 py-1 bg-purple-500 text-white rounded-md text-xs hover:bg-purple-600">
+                            + Add Subtopic
+                        </button>
+                        <div class="border p-3 rounded-md space-y-2 bg-gray-50">
+                            <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Subtopic Title">
+                            <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Subtopic Description">
+                            <button type="button" class="text-red-600 hover:text-red-900 text-xs">Remove Subtopic</button>
+                        </div>
+                        <p class="text-sm text-gray-500">No subtopics yet.</p>
+                    </div>
+                    <button type="button" class="text-red-600 hover:text-red-900 text-sm">Remove Outcome</button>
+                </div>
+                <p class="text-sm text-gray-500">No learning outcomes yet.</p>
+            </div>
+
+            <div id="tab-content-requirements" class="space-y-4 hidden">
+                <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                    + Add Requirement
+                </button>
+                <div class="flex items-center space-x-2">
+                    <input type="text" class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm" placeholder="Requirement #1">
+                    <button type="button" class="text-red-600 hover:text-red-900 text-sm">Remove</button>
+                </div>
+                <p class="text-sm text-gray-500">No requirements yet.</p>
+            </div>
+
+
+            <div class="pt-6 border-t border-gray-200">
+                <button type="submit" class="w-full sm:w-auto inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    Save Opening Program
+                </button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

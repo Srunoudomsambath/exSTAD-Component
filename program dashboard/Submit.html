@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin • Opening Program</title>
+  <style>
+    :root{
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --muted: #e5e7eb;
+      --muted-2: #f1f5f9;
+      --text: #111827;
+      --text-dim: #6b7280;
+      --primary: #2563eb;
+      --primary-600: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --ring: rgba(37,99,235,.35);
+      --radius-2xl: 1.25rem;
+      --radius-xl: 1rem;
+      --radius-lg: .75rem;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.08);
+      --shadow-md: 0 10px 20px rgba(0,0,0,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); background:var(--bg);
+    }
+    .app{display:grid; grid-template-columns: 280px 1fr; min-height:100dvh;}
+    /* Sidebar */
+    .sidebar{padding:24px; border-right:1px solid var(--muted); background:var(--card);} 
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.4px;}
+    .brand .dot{width:10px; height:10px; border-radius:999px; background:var(--primary); box-shadow:0 0 0 6px rgba(37,99,235,.15)}
+    .nav{margin-top:28px; display:grid; gap:8px}
+    .nav a{padding:10px 12px; border-radius:12px; color:var(--text-dim); text-decoration:none; display:flex; align-items:center; gap:10px}
+    .nav a:hover{background:var(--muted-2); color:var(--text)}
+    .nav a.active{background:var(--muted-2); color:var(--text); border:1px solid var(--muted)}
+    .badge{font-size:10px; padding:2px 8px; border-radius:999px; background:#e0f2fe; color:#0369a1; border:1px solid #bae6fd}
+
+    /* Main */
+    .main{padding:28px 28px 80px}
+    .header{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px}
+    .h1{font-size:22px; font-weight:700}
+    .crumbs{color:var(--text-dim); font-size:12px}
+    .cards{display:grid; grid-template-columns:1fr; gap:16px}
+
+    .card{background:var(--card); border:1px solid var(--muted); border-radius:var(--radius-2xl); box-shadow:var(--shadow-sm)}
+    .card .head{padding:18px 18px 0; display:flex; justify-content:space-between; align-items:center}
+    .card .title{font-weight:700}
+    .card .content{padding:18px}
+
+    /* Form */
+    form{display:grid; gap:20px}
+    .grid{display:grid; gap:14px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    @media (max-width: 920px){.grid.two,.grid.three{grid-template-columns:1fr}}
+
+    label{font-size:12px; color:var(--text-dim); display:block; margin:0 0 6px}
+    .input, .select, .textarea, .file{
+      width:100%; padding:12px 14px; background:var(--muted-2); color:var(--text);
+      border:1px solid var(--muted); border-radius:14px; outline:0; transition:.2s ease;
+    }
+    .input:focus, .select:focus, .textarea:focus, .file:focus{border-color:var(--primary); box-shadow:0 0 0 4px var(--ring)}
+    .textarea{min-height:120px; resize:vertical}
+    .switch{display:flex; align-items:center; gap:10px}
+    .switch input{appearance:none; width:44px; height:26px; border-radius:999px; background:var(--muted-2); border:1px solid var(--muted); position:relative; transition:.2s}
+    .switch input:checked{background:var(--primary); border-color:var(--primary-600)}
+    .switch input::after{content:""; position:absolute; top:3px; left:3px; width:20px; height:20px; border-radius:999px; background:#fff; transition:.2s}
+    .switch input:checked::after{left:21px}
+
+    .hint{font-size:11px; color:var(--text-dim)}
+    .help{font-size:12px; padding:10px 12px; border-radius:12px; border:1px dashed var(--muted); background:var(--muted-2); color:var(--text-dim)}
+
+    .btnrow{display:flex; gap:10px; justify-content:flex-end}
+    .btn{appearance:none; border:0; border-radius:14px; padding:12px 16px; font-weight:600; cursor:pointer}
+    .btn.primary{background:linear-gradient(180deg, var(--primary), var(--primary-600)); color:#fff; box-shadow:0 10px 20px rgba(37,99,235,.25)}
+    .btn.ghost{background:transparent; color:var(--text-dim); border:1px solid var(--muted)}
+
+    /* Success Modal (CSS-only using :target) */
+    #success{position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; place-items:center; padding:24px}
+    #success:target{display:grid}
+    .modal{width:min(680px, 92vw); background:var(--card); border:1px solid var(--muted); border-radius:22px; box-shadow:var(--shadow-md)}
+    .modal .body{padding:22px}
+    .check{
+      width:56px; height:56px; border-radius:14px; display:grid; place-items:center; background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); margin: 18px 0
+    }
+    .row{display:grid; grid-template-columns: 1fr auto; gap:14px; align-items:center}
+    .linkpill{padding:10px 12px; border-radius:12px; background:var(--muted-2); border:1px solid var(--muted); color:var(--text-dim); font-size:12px; word-break:break-all}
+
+    .qrwrap{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .qr{width:160px; height:160px; border-radius:14px; overflow:hidden; background:var(--muted-2); border:1px solid var(--muted); display:grid; place-items:center}
+    .qr img{max-width:100%; display:block}
+    .modal .actions{display:flex; gap:10px; justify-content:flex-end; margin-top:10px}
+    .btn.success{background:linear-gradient(180deg, #34d399, #22c55e); color:#fff}
+    .btn.neutral{background:var(--muted-2); border:1px solid var(--muted); color:var(--text)}
+
+    .footer-note{font-size:11px; color:var(--text-dim)}
+  </style>
+</head>
+<body>
+  <!-- rest of the HTML remains unchanged from previous version -->
+</body>
+</html>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span> EXSTAD <span class="badge">Admin</span></div>
+      <nav class="nav">
+        <a href="#" class="active">Opening Programs</a>
+        <a href="#">Scholars</a>
+        <a href="#">Applications</a>
+        <a href="#">Statistics</a>
+        <a href="#">Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="header">
+        <div>
+          <div class="crumbs">Dashboard / Programs</div>
+          <div class="h1">Create Opening Program</div>
+        </div>
+        <div class="help">Tip: After you submit, a success screen will show the enrollment link and a QR code you can download.</div>
+      </div>
+
+      <section class="cards">
+        <div class="card">
+          <div class="head">
+            <div class="title">Program Details</div>
+          </div>
+          <div class="content">
+            <!-- CSS-only demo: submitting navigates to #success -->
+            <form action="#success" method="get">
+              <div class="grid two">
+                <div>
+                  <label for="name">Program Title</label>
+                  <input class="input" id="name" name="name" placeholder="e.g., Web Design Bootcamp" required />
+                </div>
+                <div>
+                  <label for="generation">Generation</label>
+                  <select class="select" id="generation" name="generation" required>
+                    <option value="">Select generation…</option>
+                    <option>Gen 1</option>
+                    <option>Gen 2</option>
+                    <option>Gen 3</option>
+                    <option>Gen 4</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid two">
+                <div>
+                  <label for="category">Category</label>
+                  <select class="select" id="category" name="category">
+                    <option>Technology</option>
+                    <option>Design</option>
+                    <option>Business</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="mode">Mode</label>
+                  <select class="select" id="mode" name="mode">
+                    <option>Onsite</option>
+                    <option>Online</option>
+                    <option>Hybrid</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid three">
+                <div>
+                  <label for="start">Start Date</label>
+                  <input class="input" id="start" name="start" type="date" required />
+                </div>
+                <div>
+                  <label for="end">End Date</label>
+                  <input class="input" id="end" name="end" type="date" />
+                </div>
+                <div>
+                  <label for="deadline">Application Deadline</label>
+                  <input class="input" id="deadline" name="deadline" type="date" />
+                </div>
+              </div>
+
+              <div class="grid three">
+                <div>
+                  <label for="slots">Slots</label>
+                  <input class="input" id="slots" name="slots" type="number" min="1" placeholder="e.g., 50" />
+                </div>
+                <div>
+                  <label for="tuition">Tuition (USD)</label>
+                  <input class="input" id="tuition" name="tuition" type="number" min="0" step="0.01" placeholder="e.g., 120.00" />
+                </div>
+                <div>
+                  <label for="location">Location</label>
+                  <input class="input" id="location" name="location" placeholder="e.g., EXSTAD Campus, Phnom Penh" />
+                </div>
+              </div>
+
+              <div>
+                <label for="desc">Description</label>
+                <textarea class="textarea" id="desc" name="desc" placeholder="Write a short description…"></textarea>
+              </div>
+
+              <div class="grid two">
+                <div>
+                  <label for="cover">Cover Image</label>
+                  <input class="file" id="cover" name="cover" type="file" accept="image/*" />
+                  <div class="hint">Optional. Shown on the public enrollment page.</div>
+                </div>
+                <div class="switch">
+                  <input id="active" name="active" type="checkbox" checked />
+                  <label for="active">Active Now</label>
+                </div>
+              </div>
+
+              <div class="btnrow">
+                <button class="btn ghost" type="reset">Reset</button>
+                <button class="btn primary" type="submit">Publish Opening</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success">
+    <div class="modal">
+      <div class="body">
+        <div class="check" aria-hidden="true">
+          <!-- Check icon -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 7L9 18l-5-5" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 style="margin:0 0 6px">Opening Published</h2>
+        <p style="margin:0 0 18px; color:var(--text-dim)">Your opening program is now live. Share the enrollment link or download the QR code.</p>
+
+        <!-- Enrollment link (example) -->
+        <div class="row">
+          <div class="linkpill">https://taskify.istad.co/enroll/opening-2025-EXSTAD</div>
+          <a class="btn neutral" href="https://taskify.istad.co/enroll/opening-2025-EXSTAD" target="_blank" rel="noopener">Open form</a>
+        </div>
+
+        <div class="qrwrap" style="margin-top:14px">
+          <div class="qr">
+            <!-- Static QR using a public QR service. Replace the URL below with your actual enrollment link. -->
+            <img alt="Enrollment QR" src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Ftaskify.istad.co%2Fenroll%2Fopening-2025-EXSTAD" />
+          </div>
+          <div class="footer-note">Scan or download the QR code to share offline.<br/>
+            <a class="btn ghost" style="display:inline-block; margin-top:10px" href="https://api.qrserver.com/v1/create-qr-code/?size=1024x1024&data=https%3A%2F%2Ftaskify.istad.co%2Fenroll%2Fopening-2025-EXSTAD" download="enrollment-qr.png">Download QR</a>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn neutral" href="#">Back to dashboard</a>
+          <a class="btn success" href="#">Create another</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
